@@ -8,5 +8,9 @@ namespace YZM4215_Grup7.Controllers
         {
             return View();
         }
+
+        public IActionResult SignUp(){
+            return View();
+        }
     }
 }

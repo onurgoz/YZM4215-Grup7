@@ -1,0 +1,34 @@
+@section Styles{
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+}
+
+
+ <div class="signup-form">
+    <form action="/examples/actions/confirmation.php" method="post">
+		<h2>Kayıt Ol</h2>
+		<p>Aşşağıdaki formu doldurarak üye olabilirsiniz!</p>
+		<hr>
+        <div class="form-group">
+			<input type="text" class="form-control" name="first_name" placeholder="Tam Adınız" required="required">
+        </div>
+        <div class="form-group">
+        	<input type="email" class="form-control" name="email" placeholder="Email Adresiniz" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Şifreniz" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" class="form-control" name="confirm_password" placeholder="Şifrenizi onaylayın" required="required">
+        </div>        
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg">Kayıt Ol</button>
+        </div>
+    </form>
+	<div class="hint-text">Hesabınız var mı ?<a asp-controller="Home" asp-action="Index">Giriş Yapın</a></div>
+</div>
+
+
+@section JavaScript{
+  <script src="/lib/popper/popper.min.js"></script>
+}

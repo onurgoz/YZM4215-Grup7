@@ -1,1 +1,27 @@
-<p>Test</p>
+@section Styles{
+	<link rel="stylesheet" href="/css/login.css">
+}
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+        <h1>Giriş Yap</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <input type="text" id="login" class="fadeIn second"  placeholder="E-Posta">
+      <input type="text" id="password" class="fadeIn third"  placeholder="Şifre">
+       <input type="submit" class="fadeIn fourth" value="Giriş Yap">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      Hesabınız yok mu? <a class="underlineHover" asp-controller="Home" asp-action="Index">Kayıt Ol</a>
+    </div>
+
+  </div>
+</div>
