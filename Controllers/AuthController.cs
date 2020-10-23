@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using YZM4215_Grup7.ApiServices.Interfaces;
+using YZM4215_Grup7.CustomFilters;
 using YZM4215_Grup7.Extensions;
 using YZM4215_Grup7.Models;
 
@@ -16,6 +17,8 @@ namespace YZM4215_Grup7.Controllers
             _authService = authService;
             _contextAccessor = contextAccessor;
         }
+
+        [LoginFilter]
         public IActionResult LogIn()
         {
             return View();
@@ -47,6 +50,7 @@ namespace YZM4215_Grup7.Controllers
 
         }
 
+        [LoginFilter]
         public IActionResult SignUp()
         {
             return View();

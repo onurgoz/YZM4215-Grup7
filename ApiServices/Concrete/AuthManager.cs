@@ -1,10 +1,12 @@
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using YZM4215_Grup7.ApiServices.Interfaces;
 using YZM4215_Grup7.Models;
+using YZM4215_Grup7.Extensions;
 
 namespace YZM4215_Grup7.ApiServices.Concrete
 {
@@ -30,6 +32,11 @@ namespace YZM4215_Grup7.ApiServices.Concrete
             {
                 var token = JsonConvert.DeserializeObject<AccessToken>(await responseMessage.Content.ReadAsStringAsync());
                 _accessor.HttpContext.Session.SetString("token", token.Token);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",token.Token);
+                var activeUser =await _httpClient.GetAsync("GetActiveUser");
+            
+                var userContent = JsonConvert.DeserializeObject<AppUserViewModel>(await activeUser.Content.ReadAsStringAsync());
+                _accessor.HttpContext.Session.SetObject("activeUser", userContent);
                 
                 return true;
             }
