@@ -1,0 +1,58 @@
+@model AppUserLoginModel
+
+@section Styles{
+	<link rel="stylesheet" href="/css/login.css">
+}
+
+<div class="wrapper fadeInDown">
+  @{
+  if(TempData["Kayit"]!=null){
+    <div id="message">
+    <div style="padding: 5px;">
+        <div id="inner-message" class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+              Tebrikler başarıyla kayıt oldun! Şimdi giriş yapabilirsin.
+        </div>
+      </div>
+    </div>
+  }
+}
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+        <h1>Giriş Yap</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form method="POST" class="signInForm" asp-action="LogIn">
+      <div class="form-group">
+        <span class="text-danger" asp-validation-for="@Model.Email"></span>
+        <input type="email" id="email" class="fadeIn second" asp-for="@Model.Email"  placeholder="E-Posta">
+      </div>
+      <div class="form-group">
+        <span class="text-danger" asp-validation-for="@Model.Password"></span>
+        <input type="password" id="password" class="fadeIn third" asp-for="@Model.Password"  placeholder="Şifre">
+      </div>
+      <input type="submit" class="fadeIn fourth" value="Giriş Yap">
+      <div asp-validation-summary="All">
+        
+      </div>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      Hesabınız yok mu? <a class="underlineHover" asp-controller="Auth" asp-action="SignUp">Kayıt Ol</a>
+    </div>
+
+  </div>
+</div>
+
+@section JavaScript{
+  <script>
+  jQuery.extend(jQuery.validator.messages, {
+    email: "Lütfen geçerli bir email adresi giriniz.(a@b.c)"
+  });
+  </script>
+}

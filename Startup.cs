@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using YZM4215_Grup7.ApiServices.Concrete;
+using YZM4215_Grup7.ApiServices.Interfaces;
 
 namespace YZM4215_Grup7
 {
@@ -19,6 +21,7 @@ namespace YZM4215_Grup7
             services.AddHttpContextAccessor();
             services.AddSession();
 
+            services.AddHttpClient<IAuthService,AuthManager>();
             services.AddControllersWithViews();
         }
 
@@ -38,7 +41,7 @@ namespace YZM4215_Grup7
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name: "areas", pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute(name: default, pattern: "{controller=Home}/{action=Index}");
+                endpoints.MapControllerRoute(name: default, pattern: "{controller=Auth}/{action=LogIn}");
             });
         }
     }

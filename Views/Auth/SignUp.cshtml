@@ -1,0 +1,54 @@
+@model AppUserRegisterModel
+
+@section Styles{
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+}
+
+
+ <div class="signup-form fadeInDown">
+    <form asp-action="SignUp" id="signUpForm" method="post">
+		<h2 class="fadeIn first">Kayıt Ol</h2>
+		<p class="fadeIn first">Aşağıdaki formu doldurarak üye olabilirsiniz!</p>
+		<hr>
+        <div class="form-group">
+            <span class="text-danger" asp-validation-for="@Model.UserName"></span>
+            <input placeholder="Kullanıcı Adı"  id="username" class="form-control fadeIn second" type="text" asp-for="@Model.UserName">
+        </div>
+        <div class="form-group">
+            <span class="text-danger" asp-validation-for="@Model.Password"></span>
+            <input asp-for="@Model.Password" type="password" class="form-control fadeIn second" placeholder="Şifreniz">
+        </div>
+		<div class="form-group">
+            <span class="text-danger" asp-validation-for="@Model.CheckPassword"></span>
+            <input type="password" asp-for="@Model.CheckPassword" class="form-control fadeIn second" placeholder="Şifrenizi onaylayın" >
+        </div>
+        <div class="form-group">
+            <span class="text-danger" asp-validation-for="@Model.Email"></span>
+        	<input type="email" asp-for="@Model.Email" class="form-control fadeIn second" placeholder="Email Adresiniz">
+        </div>
+        <div class="form-group">
+            <span class="text-danger" asp-validation-for="@Model.FullName"></span>
+			<input asp-for="@Model.FullName" type="text" class="form-control fadeIn second"  placeholder="Tam Adınız" >
+        </div>        
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg fadeIn third">Kayıt Ol</button>
+        </div>
+        <div asp-validation-summary="All" class="text-danger">
+
+        </div>
+    </form>
+	<div class="hint-text fadeIn fourth ">Hesabınız var mı ?<a class="underlineHover" asp-controller="Auth" asp-action="LogIn">Giriş Yapın</a></div>
+</div>
+
+
+@section JavaScript{
+  <script src="/lib/popper/popper.min.js"></script>
+  <script>
+  jQuery.extend(jQuery.validator.messages, {
+    email: "Lütfen geçerli bir email adresi giriniz.(a@b.c)"
+  });
+  </script>
+
+
+}
