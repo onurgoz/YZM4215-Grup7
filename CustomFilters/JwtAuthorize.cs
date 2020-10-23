@@ -59,13 +59,13 @@ namespace YZM4215_Grup7.CustomFilters
             else if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
             {
                 context.HttpContext.Session.Remove("token");
-                context.Result=new RedirectToActionResult("SignIn","Account",null);
+                context.Result=new RedirectToActionResult("SignIn","Auth",null);
             }
             else
             {
                 var statusCode = responseMessage.StatusCode.ToString();
-                 context.HttpContext.Session.Remove("token");
-                context.Result=new RedirectToActionResult("ApiError","Account", new{code=statusCode});
+                context.HttpContext.Session.Remove("token");
+                context.Result=new RedirectToActionResult("ApiError","Auth", new{code=statusCode});
             }
 
         }

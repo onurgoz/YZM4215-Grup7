@@ -27,13 +27,6 @@ namespace YZM4215_Grup7.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(AppUserLoginModel model)
         {
-            // var user = _contextAccessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
-            // if (user != null)
-            // {/*burası değieşecektir.<------------------------------------------*/
-            //     return RedirectToAction("Index", "Home");
-            // }
-            // else
-            // {
             if (ModelState.IsValid)
             {
                 if (await _authService.SignIn(model))
@@ -46,8 +39,6 @@ namespace YZM4215_Grup7.Controllers
                 }
             }
             return View(model);
-            //}
-
         }
 
         [LoginFilter]
