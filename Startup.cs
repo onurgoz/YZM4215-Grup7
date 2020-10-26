@@ -22,6 +22,7 @@ namespace YZM4215_Grup7
             services.AddSession();
 
             services.AddHttpClient<IAuthService,AuthManager>();
+            services.AddHttpClient<IProductService,ProductManager>();
             services.AddControllersWithViews();
         }
 

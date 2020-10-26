@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using YZM4215_Grup7.Extensions;
@@ -12,7 +13,7 @@ namespace YZM4215_Grup7.CustomFilters
             var activeUser = context.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
             if (activeUser == null)
             {
-                context.Result = new ViewResult();
+                context.Result =new ViewResult();
             }
             else
             {

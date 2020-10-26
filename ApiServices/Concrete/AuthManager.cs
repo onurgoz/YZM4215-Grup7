@@ -37,7 +37,7 @@ namespace YZM4215_Grup7.ApiServices.Concrete
             
                 var userContent = JsonConvert.DeserializeObject<AppUserViewModel>(await activeUser.Content.ReadAsStringAsync());
                 _accessor.HttpContext.Session.SetObject("activeUser", userContent);
-                
+                _accessor.HttpContext.Session.SetString("userName",userContent.FullName);
                 return true;
             }
             return false;
