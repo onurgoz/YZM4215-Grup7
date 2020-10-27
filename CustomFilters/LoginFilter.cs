@@ -11,7 +11,7 @@ namespace YZM4215_Grup7.CustomFilters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var activeUser = context.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
-            if (activeUser == null)
+            if (activeUser == null || context.HttpContext.Session.GetString("token")==null)
             {
                 context.Result =new ViewResult();
             }
@@ -32,7 +32,7 @@ namespace YZM4215_Grup7.CustomFilters
                         }
                         else
                         {
-                            context.Result = new RedirectToActionResult("Index", "Index", new { @Area = "Member" });
+                            context.Result = new RedirectToActionResult("Index", "Home", new { @Area = "Member" });
                         }
                     }
                 }

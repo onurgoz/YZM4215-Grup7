@@ -29,9 +29,18 @@ namespace YZM4215_Grup7.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 if (await _authService.SignIn(model))
                 {
-                    return RedirectToAction("Index", "Home", new { @area = "Admin" });
+                    var activeUser = _contextAccessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
+                    if (activeUser.Roles.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "Home", new { @area = "Admin" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home", new { @area = "Member" });
+                    }
                 }
                 else
                 {
@@ -52,14 +61,15 @@ namespace YZM4215_Grup7.Controllers
         {
             if (ModelState.IsValid)
             {
-                string message= await _authService.SignUp(model);
+                string message = await _authService.SignUp(model);
                 if (string.IsNullOrWhiteSpace(message))
                 {
                     TempData["Kayit"] = "KayıtOlundu!";
                     return RedirectToAction("LogIn", "Auth");
                 }
-                else{
-                    ModelState.AddModelError("",message);
+                else
+                {
+                    ModelState.AddModelError("", message);
                     return View(model);
                 }
             }
@@ -68,5 +78,13 @@ namespace YZM4215_Grup7.Controllers
                 return View(model);
             }
         }
+
+        public IActionResult LogOut()
+        {
+            _contextAccessor.HttpContext.Session.Remove("token");
+            _contextAccessor.HttpContext.Session.Remove("activeUser");
+            return RedirectToAction("LogIn", "Auth");
+        }
+
     }
 }

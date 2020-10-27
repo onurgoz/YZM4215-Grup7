@@ -10,11 +10,17 @@
     <link href="/Templates/admin/dist/css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+    <style>
+        body{
+        font-family: 'Montserrat';font-size: 14px;
+        }
+    </style>
     @RenderSection("Style",false)
 </head>
 <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home">Factory</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -33,7 +39,7 @@
                         <a class="dropdown-item">@HttpContextAccessor.HttpContext.Session.GetString("userName")</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Profil Ayarları</a>
-                        <a class="dropdown-item" href="login.html">Çıkış Yap</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Auth" asp-action="LogOut"><i class="fas fa-sign-out-alt mr-2"></i>Çıkış yap</a>
                     </div>
                 </li>
             </ul>
@@ -48,7 +54,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Grafikler
                             </a>
-                            <div class="sb-sidenav-menu-heading">Ürün İşlemleri</div>
+                            <div class="sb-sidenav-menu-heading"><i class="fab fa-product-hunt mr-2"></i>Ürün İşlemleri</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Ürün
@@ -56,9 +62,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Ürün Ekle</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Ürünü Güncelle</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Ürünü Sil</a>                                    
+                                    <a class="nav-link" asp-controller="Product" asp-area="Admin" asp-action="GetAllProducts">Ürünleri Görüntüle</a>
+                                    <a class="nav-link" href="layout-static.html">Ürün Ekle</a>                                    
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Bayi İşlemleri</div>
@@ -69,6 +74,7 @@
                             </a>
                             <div class="collapse" id="collapseDealers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="layout-static.html">Bayileri Görüntüle</a>
                                     <a class="nav-link" href="layout-static.html">Bayi Ekle</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Bayi Güncelle</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Bayi Sil</a>
