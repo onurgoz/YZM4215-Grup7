@@ -30,7 +30,7 @@ namespace YZM4215_Grup7.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(ProductAddModel model){
             await _productService.AddProductAsync(model);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("GetAllProducts","Product");
         }
 
     }

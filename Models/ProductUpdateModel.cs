@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace YZM4215_Grup7.Models
 {
-    public class ProductAddModel{
-
+    public class ProductUpdateModel{
+        public int Id { get; set; }
+        
         [Required(ErrorMessage="İsim alanı boş geçilemez")]
         public string Name { get; set; }
         

@@ -16,7 +16,7 @@
         font-family: 'Montserrat';font-size: 14px;
         }
     </style>
-    @RenderSection("Style",false)
+    @RenderSection("Styles",false)
 </head>
 <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -63,7 +63,7 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" asp-controller="Product" asp-area="Admin" asp-action="GetAllProducts">Ürünleri Görüntüle</a>
-                                    <a class="nav-link" href="layout-static.html">Ürün Ekle</a>                                    
+                                    <a class="nav-link" asp-controller="Product" asp-area="Admin" asp-action="AddProduct">Ürün Ekle</a>                                    
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Bayi İşlemleri</div>
@@ -110,5 +110,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="/Templates/admin/dist/assets/demo/datatables-demo.js"></script>
+        <script src="/lib/jquery-validate/jquery.validate.min.js"></script>
+        <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     </body>
 </html>

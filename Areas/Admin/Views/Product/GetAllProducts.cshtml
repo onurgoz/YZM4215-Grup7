@@ -1,10 +1,13 @@
 @model List<ProductViewModel>
 
+@section Styles{
+  <link rel="stylesheet" href="/css/product.css">
+}
 <div class="container">
   <div class="row">
       @foreach (var product in Model)
       {
-       <div class="col-lg-4 col-md-12">
+       <div class="col-lg-4 col-md-12 d-flex align-items-stretch pt-2">
           <!--Card-->
         <div class="card card-cascade card-ecommerce narrower">
 
