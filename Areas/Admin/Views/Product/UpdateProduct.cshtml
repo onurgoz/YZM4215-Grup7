@@ -1,9 +1,10 @@
-@model ProductAddModel
+@model ProductUpdateModel
 
 <div class="container">
     <div class="row h-100">
         <div class="col-sm-12 my-auto">
-            <form method="post" asp-action="AddProduct" class="p-3 w-75 ms-auto" enctype="multipart/form-data">
+            <form method="post" asp-action="UpdateProduct" class="w-75 p-3 mx-auto" enctype="multipart/form-data">
+                <input class="form-control" type="hidden" asp-for="@Model.Id" >
                 <div class="form-group">
                     <span class="text-danger" asp-for="@Model.Name"></span>
                     <input class="form-control" placeholder="Ürün adı" type="text" asp-for="@Model.Name">
@@ -21,5 +22,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>    
 </div>

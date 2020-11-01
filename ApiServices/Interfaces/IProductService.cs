@@ -8,5 +8,7 @@ namespace YZM4215_Grup7.ApiServices.Interfaces
         Task<List<ProductViewModel>> GetAllProductsAsync();
         Task<ProductViewModel> GetByIdProductAsync(int id);
         Task AddProductAsync(ProductAddModel model);
+        Task<string> UpdateProductAsync(ProductUpdateModel model);
+        Task<string> DeleteProductAsync(int id);
     }
 }

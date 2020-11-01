@@ -11,7 +11,6 @@ namespace YZM4215_Grup7.CustomFilters
 {
     public class JwtAuthorize : ActionFilterAttribute
     {
-
         public string Roles { get; set; }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
