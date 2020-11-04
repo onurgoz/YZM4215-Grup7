@@ -86,5 +86,14 @@ namespace YZM4215_Grup7.Controllers
             return RedirectToAction("LogIn", "Auth");
         }
 
+        public IActionResult StatusCode(int? code)
+        {
+            if (code == 404)
+            {
+                ViewBag.Code = code;
+                ViewBag.Message = "Sayfa Bulunamadı";
+            }
+            return View();
+        }
     }
 }

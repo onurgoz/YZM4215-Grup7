@@ -24,6 +24,7 @@ namespace YZM4215_Grup7
             services.AddHttpClient<IAuthService,AuthManager>();
             services.AddHttpClient<IProductService,ProductManager>();
             services.AddHttpClient<IImageService,ImageManager>();
+            services.AddHttpClient<IDealerService, DealerManager>();
             services.AddControllersWithViews();
         }
 
@@ -34,6 +35,8 @@ namespace YZM4215_Grup7
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStatusCodePagesWithReExecute("/Auth/StatusCode", "?code={0}");
 
             app.UseRouting();
 

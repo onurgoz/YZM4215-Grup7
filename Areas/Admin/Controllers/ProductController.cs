@@ -17,15 +17,18 @@ namespace YZM4215_Grup7.Areas.Admin.Controllers
             _productService = productService;
         }
 
+        [JwtAuthorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _productService.GetAllProductsAsync());
         }
 
+        [JwtAuthorize(Roles = "Admin")]
         public async Task<IActionResult> ProductDetail(int id){
             return View(await _productService.GetByIdProductAsync(id));
         }
 
+        [JwtAuthorize(Roles = "Admin")]
         public IActionResult AddProduct()
         {
             return View(new ProductAddModel());
