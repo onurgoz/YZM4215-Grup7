@@ -1,0 +1,39 @@
+@model List<OrderDetailListModel>
+
+@{
+  if(TempData["Offer"]!=null){
+    <div id="message">
+    <div style="padding: 5px;">
+        <div id="inner-message" class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Satın alma işlemi başarıyla gerçekleşti.
+        </div>
+      </div>
+    </div>
+  }
+
+  int counter = 0;
+}
+
+<div class="pt-2" id="accordion" role="tablist" aria-multiselectable="false">
+@foreach (var order in Model)
+{
+    counter++;
+   <div class="card">
+        <h5 class="card-header" role="tab" id="heading-@counter">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-@counter" aria-expanded="@(counter==1 ? "true":"false")" aria-controls="collapse-@counter" class="d-block @(counter==1 ? "" : "collapsed")">
+                <i class="fa fa-chevron-down pull-right"></i> Satın alım Tarihi : @order.BuyTime.ToLongDateString()
+            </a>
+        </h5>
+
+        <div id="collapse-@counter" class="collapse @(counter==0 ? "show" : "")" role="tabpanel" aria-labelledby="heading-@counter">
+            <div class="card-body">
+                <p>Bayi Adı : @order.DealerName</p>
+                <p>Ürün Adı : @order.ProductName</p>
+                <p>Sipariş Miktarı : @order.NumberOfOrders</p>
+                <p>Kargo Durumu : Kargo Yolda</p>
+            </div>
+        </div>
+    </div>
+}
+</div>

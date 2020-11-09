@@ -8,6 +8,7 @@ namespace YZM4215_Grup7.ApiServices.Interfaces
     {
         Task<List<DealerListModel>> GetAllDealersAsync();
         Task<DealerListModel> GetDealerByIdAsync(int id);
+        Task<List<DealerListModel>> GetDealersByAppUserId(int appUserId);
         Task AddDealerAsync(DealerAddModel model);
         Task UpdateDealerAsync(DealerListModel model);
         Task DeleteDealerAsync(int id);

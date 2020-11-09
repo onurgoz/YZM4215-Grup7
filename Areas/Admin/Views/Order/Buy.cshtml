@@ -1,0 +1,70 @@
+@model AddOrderModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-lg-8 p-3">
+            <form method="post" asp-action="Buy" class=" w-75 ms-auto">
+                <div class="form-group">
+                    <span class="text-danger" asp-for="@Model.ProductId"></span>
+                    <input  type="hidden" asp-for="@Model.ProductId">
+                </div>
+
+                <div class="form-group">
+                    <label>Adet(En az 1, en fazla 3000 adet sipariş verebilirsiniz)</label>
+                    <span class="text-danger" asp-for="@Model.NumberOfOrders"></span>
+                    <input class="form-control" placeholder="Adet" type="text" asp-for="@Model.NumberOfOrders">
+                </div>
+
+                <div class="form-group">
+                    <label>Gönderilecek Bayiyi Seçiniz</label>
+                    <span asp-validation-for="@Model.DealerId" class="text-danger"></span>
+                    <select class="form-control" asp-for="@Model.DealerId" asp-items="ViewBag.Dealers">
+                        <option value="-1">Seçiniz</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-info">Satın al</button>
+                </div>
+
+                <div class="text-danger" asp-validation-summary="All">
+                    
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-4 p-3">
+           <div class="card">
+               <getproductimage id="@Model.ProductId"></getproductimage>
+               <div class="card-body">
+                   <h5 class="card-title">Ürün Detayları</h5>
+                   <p class="card-text">Ürün Adı:@ViewBag.Product.ToString()</p>
+               </div>
+           </div>
+        </div>
+    </div>
+</div>
+
+@section JavaScript{
+    <script>
+        function setInputFilter(textbox, inputFilter) {
+            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+                textbox.addEventListener(event, function() {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+                });
+            });
+            }
+
+            // Install input filters.
+            setInputFilter(document.getElementById("NumberOfOrders"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 3000); });
+    </script>
+}

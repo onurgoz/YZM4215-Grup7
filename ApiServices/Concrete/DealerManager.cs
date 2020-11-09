@@ -53,6 +53,22 @@ namespace YZM4215_Grup7.ApiServices.Concrete
             }
         }
 
+        public async Task<List<DealerListModel>> GetDealersByAppUserId(int appUserId)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessor.HttpContext.Session.GetString("token"));
+
+            var responseMessage = await _httpClient.GetAsync($"GetDealersByAppUserId/{appUserId}");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<DealerListModel>>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task AddDealerAsync(DealerAddModel model)
         {
             MultipartFormDataContent formDataContent = new MultipartFormDataContent();

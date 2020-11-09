@@ -51,7 +51,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">İstatistikler</div>
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Grafikler
                         </a>
@@ -77,6 +77,17 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" asp-area="Admin" asp-controller="Dealer" asp-action="Index">Bayileri Görüntüle</a>
                                 <a class="nav-link" asp-area="Admin" asp-controller="Dealer" asp-action="AddDealer">Bayi Ekle</a>
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Sipariş İşlemleri</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Sipariş
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseOrders" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Siparişleri Görüntüle</a>
                             </nav>
                         </div>
                     </div>

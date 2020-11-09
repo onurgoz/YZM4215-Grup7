@@ -25,6 +25,7 @@ namespace YZM4215_Grup7
             services.AddHttpClient<IProductService,ProductManager>();
             services.AddHttpClient<IImageService,ImageManager>();
             services.AddHttpClient<IDealerService, DealerManager>();
+            services.AddHttpClient<IOrderService, OrderManager>();
             services.AddControllersWithViews();
         }
 
