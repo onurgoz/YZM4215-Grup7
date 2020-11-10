@@ -1,0 +1,22 @@
+@model DealerListModel
+
+
+    <div class="row h-100">
+        <div class="col-sm-12 my-auto">
+            <form method="post" asp-action="UpdateDealer" class="w-75 p-3 mx-auto" enctype="multipart/form-data">
+                <input class="form-control" type="hidden" asp-for="@Model.Id" >
+                <div class="form-group">
+                    <span class="text-danger" asp-for="@Model.Name"></span>
+                    <input class="form-control" placeholder="Satıcı adı" type="text" asp-for="@Model.Name">
+                </div>
+                <div class="form-group">
+                    <span class="text-danger" asp-validation-for="@Model.Address"></span>
+                    <textarea class="form-control" placeholder="Ürün Açıklaması" asp-for="Address" rows="3"></textarea>
+                </div>
+                <input type="hidden" asp-for="@Model.AppUserId">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-info">Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </div>    

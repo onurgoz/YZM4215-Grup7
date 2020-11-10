@@ -1,0 +1,26 @@
+@model ProductViewModel
+
+@section Styles{
+  <link rel="stylesheet" href="/css/productdetail.css">
+  <style>
+      body{
+          margin: 0 !important;
+          padding: 0 !important;
+      }
+  </style>
+}
+
+
+    <div class="row">
+            <div class="col-12 w-50">
+                <div class="card">
+                <getproductimage id="@Model.Id"></getproductimage>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">@Model.Description</p>
+                    <a class="btn btn-sm btn-outline-danger" asp-route-productId="@Model.Id" asp-controller="Order" asp-action="Buy">Satın al</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+

@@ -1,0 +1,42 @@
+.dropdown-menu--animate.collapsing {
+    display: block;
+}
+
+.dropdown-menu--animate {
+    opacity: 0.8;
+    height: 0;
+    display: block;
+    transition: all 0.3s;
+    overflow: hidden;
+    transform-origin: top;
+    transform: scale(1,0);
+}
+
+.dropdown-menu--animate.show {
+    opacity: 1;
+    height: auto;
+    transition: all 0.3s;
+    transform: scale(1);
+}
+
+
+
+.grow-in {
+    opacity: 0;
+    display: block;
+    transition: all 0.3s cubic-bezier(0, 1, 0.3, 1);
+    overflow: hidden;
+    transform: scale(0.8);
+}
+
+.grow-in.collapsing {
+    opacity: 0.1;
+    transform: scale(0.9);
+    transition: all 0.3s linear;
+}
+
+.grow-in.show {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s cubic-bezier(0, 1, 0.3, 1);
+}
