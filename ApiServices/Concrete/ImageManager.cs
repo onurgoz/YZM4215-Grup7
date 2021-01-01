@@ -25,7 +25,20 @@ namespace YZM4215_Grup7.ApiServices.Concrete
             {
                 return null;
             }
+        }
 
+        public async Task<string> GetProfileImageById(int id)
+        {
+            var responseMessage = await _httpClient.GetAsync($"GetProfileImage/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var bytes = await responseMessage.Content.ReadAsByteArrayAsync();
+                return $"data:image/jpeg:base64,{Convert.ToBase64String(bytes)}";
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

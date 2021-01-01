@@ -79,6 +79,47 @@ namespace YZM4215_Grup7.Controllers
             }
         }
 
+        [LoginFilter]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordModel model)
+        {
+            if (await _authService.ForgotMyPass(model))
+            {
+                return RedirectToAction("ResetPassword");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Böyle bir email bulunmamaktadır.");
+                return View(model);
+            }
+        }
+
+        [LoginFilter]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidModel]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            if (await _authService.ResetPassword(model))
+            {
+                return RedirectToAction("LogIn");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Girdiğiniz kod yanlıştır.");
+                return View(model);
+            }
+        }
+
         public IActionResult LogOut()
         {
             _contextAccessor.HttpContext.Session.Remove("token");
