@@ -1,5 +1,11 @@
 @model ProductAddModel
-
+@section Styles{
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+}
 <div class="container">
     <div class="row h-100">
         <div class="col-sm-12 my-auto">
@@ -20,6 +26,9 @@
                     <button type="submit" class="btn btn-sm btn-info">Kaydet</button>
                 </div>
             </form>
+            <div asp-validation-summary="All">
+
+            </div>
         </div>
     </div>
 </div>

@@ -16,16 +16,18 @@ namespace YZM4215_Grup7.ApiServices.Concrete
         private readonly IHttpContextAccessor _accessor;
         public ProductManager(HttpClient httpClient, IHttpContextAccessor accessor)
         {
-            _accessor=accessor;
-            _httpClient=httpClient;
-            _httpClient.BaseAddress=new System.Uri("http://localhost:58546/api/products/");
+            _accessor = accessor;
+            _httpClient = httpClient;
+            _httpClient.BaseAddress = new System.Uri("http://localhost:58546/api/products/");
         }
-        
-        public async Task<List<ProductViewModel>> GetAllProductsAsync(){
+
+        public async Task<List<ProductViewModel>> GetAllProductsAsync()
+        {
             var responseMessage = await _httpClient.GetAsync("");
 
-            if(responseMessage.IsSuccessStatusCode){
-                return JsonConvert.DeserializeObject<List<ProductViewModel>> (await responseMessage.Content.ReadAsStringAsync());
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<ProductViewModel>>(await responseMessage.Content.ReadAsStringAsync());
             }
             else
             {
@@ -33,45 +35,61 @@ namespace YZM4215_Grup7.ApiServices.Concrete
             }
         }
 
-        public async Task<ProductViewModel> GetByIdProductAsync(int id){
+        public async Task<ProductViewModel> GetByIdProductAsync(int id)
+        {
             var responseMessage = await _httpClient.GetAsync($"{id}");
 
-            if(responseMessage.IsSuccessStatusCode){
-                return JsonConvert.DeserializeObject<ProductViewModel> (await responseMessage.Content.ReadAsStringAsync());
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<ProductViewModel>(await responseMessage.Content.ReadAsStringAsync());
             }
-            else{
+            else
+            {
                 return null;
             }
         }
 
-        public async Task AddProductAsync(ProductAddModel model){
+        public async Task<bool> AddProductAsync(ProductAddModel model)
+        {
             MultipartFormDataContent formData = new MultipartFormDataContent();
 
-            if(model.Image != null){
+            if (model.Image != null)
+            {
                 var stream = new MemoryStream();
                 await model.Image.CopyToAsync(stream);
                 var bytes = stream.ToArray();
 
                 ByteArrayContent arrayContent = new ByteArrayContent(bytes);
 
-                arrayContent.Headers.ContentType= new MediaTypeHeaderValue(model.Image.ContentType);
+                arrayContent.Headers.ContentType = new MediaTypeHeaderValue(model.Image.ContentType);
 
-                formData.Add(arrayContent,nameof(ProductAddModel.Image),model.Image.FileName);
+                formData.Add(arrayContent, nameof(ProductAddModel.Image), model.Image.FileName);
             }
 
-            formData.Add(new StringContent(model.Name),nameof(ProductAddModel.Name));
-            formData.Add(new StringContent(model.Description),nameof(ProductAddModel.Description));
+            formData.Add(new StringContent(model.Name), nameof(ProductAddModel.Name));
+            formData.Add(new StringContent(model.Description), nameof(ProductAddModel.Description));
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessor.HttpContext.Session.GetString("token"));
 
-            await _httpClient.PostAsync("",formData);
+            var responseMessage = await _httpClient.PostAsync("", formData);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
 
 
-        public async Task<string> UpdateProductAsync(ProductUpdateModel model){
+        public async Task<string> UpdateProductAsync(ProductUpdateModel model)
+        {
             MultipartFormDataContent dataContent = new MultipartFormDataContent();
-            if(model.Image!=null){
+            if (model.Image != null)
+            {
                 var stream = new MemoryStream();
                 await model.Image.CopyToAsync(stream);
                 var bytes = stream.ToArray();
@@ -79,34 +97,39 @@ namespace YZM4215_Grup7.ApiServices.Concrete
                 ByteArrayContent byteContent = new ByteArrayContent(bytes);
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue(model.Image.ContentType);
 
-                dataContent.Add(byteContent,nameof(model.Image),model.Image.FileName); 
+                dataContent.Add(byteContent, nameof(model.Image), model.Image.FileName);
             }
 
-            dataContent.Add(new StringContent(model.Id.ToString()),nameof(model.Id));
-            dataContent.Add(new StringContent(model.Name),nameof(model.Name));
-            dataContent.Add(new StringContent(model.Description),nameof(model.Description));
+            dataContent.Add(new StringContent(model.Id.ToString()), nameof(model.Id));
+            dataContent.Add(new StringContent(model.Name), nameof(model.Name));
+            dataContent.Add(new StringContent(model.Description), nameof(model.Description));
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessor.HttpContext.Session.GetString("token"));
 
-            var responseMessage =await _httpClient.PutAsync($"{model.Id}",dataContent);
+            var responseMessage = await _httpClient.PutAsync($"{model.Id}", dataContent);
 
-            if(responseMessage.IsSuccessStatusCode){
+            if (responseMessage.IsSuccessStatusCode)
+            {
                 return "";
             }
-            else{
-                return "api hatasý kontrol et";
+            else
+            {
+                return "api hatasï¿½ kontrol et";
             }
         }
 
 
-        public async Task<string> DeleteProductAsync(int id){
+        public async Task<string> DeleteProductAsync(int id)
+        {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessor.HttpContext.Session.GetString("token"));
             var responseMessage = await _httpClient.DeleteAsync($"{id}");
-            if(responseMessage.IsSuccessStatusCode){
+            if (responseMessage.IsSuccessStatusCode)
+            {
                 return "";
             }
-            else{
-                return "api hatasý kontrol et";
+            else
+            {
+                return "api hatasï¿½ kontrol et";
             }
         }
     }
