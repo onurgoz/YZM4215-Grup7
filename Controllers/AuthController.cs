@@ -29,8 +29,8 @@ namespace YZM4215_Grup7.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                if (await _authService.SignIn(model))
+                string message = await _authService.SignIn(model);
+                if (message=="")
                 {
                     var activeUser = _contextAccessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
                     if (activeUser.Roles.Contains("Admin"))
@@ -44,7 +44,8 @@ namespace YZM4215_Grup7.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
+                    ModelState.AddModelError("", message);
+                    return View(model);
                 }
             }
             return View(model);

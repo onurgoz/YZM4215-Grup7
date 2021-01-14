@@ -22,12 +22,13 @@ namespace YZM4215_Grup7.ApiServices.Concrete
             _accessor = accessor;
         }
 
-        public async Task<bool> SignIn(AppUserLoginModel loginModel)
+        public async Task<string> SignIn(AppUserLoginModel loginModel)
         {
             var json = JsonConvert.SerializeObject(loginModel);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var responseMessage = await _httpClient.PostAsync("SignIn", content);
+            string ErrorMessage = await responseMessage.Content.ReadAsStringAsync();
             if (responseMessage.IsSuccessStatusCode)
             {
                 var token = JsonConvert.DeserializeObject<AccessToken>(await responseMessage.Content.ReadAsStringAsync());
@@ -39,9 +40,10 @@ namespace YZM4215_Grup7.ApiServices.Concrete
                 _accessor.HttpContext.Session.SetObject("activeUser", userContent);
                 _accessor.HttpContext.Session.SetString("userName", userContent.FullName);
                 _accessor.HttpContext.Session.SetString("eMail", loginModel.Email);
-                return true;
+                return "";
             }
-            return false;
+            else
+                return ErrorMessage;
         }
 
 
