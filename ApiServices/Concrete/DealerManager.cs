@@ -75,6 +75,8 @@ namespace YZM4215_Grup7.ApiServices.Concrete
 
             formDataContent.Add(new StringContent(model.Name), nameof(model.Name));
             formDataContent.Add(new StringContent(model.Address), nameof(model.Address));
+            formDataContent.Add(new StringContent(model.Email), nameof(model.Email));
+            formDataContent.Add(new StringContent(model.PhoneNumber), nameof(model.PhoneNumber));
 
             var user = _accessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
             model.AppUserId = user.Id;
@@ -93,6 +95,8 @@ namespace YZM4215_Grup7.ApiServices.Concrete
             formDataContent.Add(new StringContent(model.Id.ToString()), nameof(model.Id));
             formDataContent.Add(new StringContent(model.Name), nameof(model.Name));
             formDataContent.Add(new StringContent(model.Address), nameof(model.Address));
+            formDataContent.Add(new StringContent(model.Email), nameof(model.Email));
+            formDataContent.Add(new StringContent(model.PhoneNumber), nameof(model.PhoneNumber));
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessor.HttpContext.Session.GetString("token"));
 

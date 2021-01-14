@@ -1,19 +1,24 @@
 @model List<DealerListModel>
 
-@if(Model.Count==0){
+@if (Model.Count == 0)
+{
+    <div class="container">
         <div class="row h-100">
-            <div class="col-sm-12 my-auto m-sm-auto" >
+            <div class="col-sm-12 my-auto m-sm-auto">
                 <p class="text-danger"> Herhangi bir satıcı bulunamadı yeni eklemek ister misiniz?</p>
                 <a asp-action="AddDealer" asp-controller="Dealer" class="btn btn-sm btn-info">Oluştur</a>
             </div>
         </div>
+    </div>
 }
 
-else{
+else
+{
+    <div class="container">
         <div class="row">
             <h2 class="pt-2">Bayileri Görüntüle</h2>
             <div class="table-responsive  mt-3">
-                <table class="table table-light">
+                <table class="table table-light" id=example>
                     <thead class="thead-light">
                         <tr>
                             <th>Bayi İsimleri</th>
@@ -29,42 +34,56 @@ else{
                                 <td>@dealer.Address</td>
                                 <td>
                                     <a asp-action="UpdateDealer" asp-controller="Dealer" asp-route-id="@dealer.Id"><i class="fas fa-pen"></i></a>
-                                   <a data-id="@dealer.Id" data-toggle="modal" data-target="#exampleModal"  title="Seçili üründe silme işlemi yapılır" class="silmeclassi"><i class="fas fa-trash" style="color:red"></i></a>
+                                    <a data-id="@dealer.Id" data-toggle="modal" data-target="#exampleModal" title="Seçili üründe silme işlemi yapılır" class="silmeclassi"><i class="fas fa-trash" style="color:red"></i></a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-            </div>    
+            </div>
         </div>
+    </div>
 }
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ürün Silme</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         Bayi silinecektir. Emin misiniz ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
-        <a type="button" id='btnDelete' class="btn btn-warning" >Sil</a>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ürün Silme</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bayi silinecektir. Emin misiniz ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+                <a type="button" id='btnDelete' class="btn btn-warning">Sil</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 @section JavaScript{
     <script>
-      $(".silmeclassi").on('click', function() {
-      var id =$(this).data("id");
-      $('#btnDelete').attr('href','/Member/Dealer/DeleteDealer/'+id.toString());
-    }); 
+        $(".silmeclassi").on('click', function () {
+            var id = $(this).data("id");
+            $('#btnDelete').attr('href', '/Admin/Dealer/DeleteDealer/' + id.toString());
+        });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Turkish.json'
+                }
+            });
+        });
+    </script>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js%3E</script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/jquery.dataTables.min.js%3E</script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.20/js/dataTables.bootstrap4.min.js%3E</script>
 }

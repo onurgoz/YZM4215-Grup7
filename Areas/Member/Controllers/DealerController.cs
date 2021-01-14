@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +40,7 @@ namespace YZM4215_Grup7.Areas.Member.Controllers
         {
             if (ModelState.IsValid)
             {
+	            model.Address = model.Address + "  -" + model.City + "/" + model.District;
                 await _dealerService.AddDealerAsync(model);
                 return RedirectToAction("Index", "Dealer");
             }
@@ -49,16 +52,26 @@ namespace YZM4215_Grup7.Areas.Member.Controllers
 
         public async Task<IActionResult> UpdateDealer(int id)
         {
-            TempData["Active"]="dealers";
-            var dealer =await _dealerService.GetDealerByIdAsync(id);
+	        var dealer = await _dealerService.GetDealerByIdAsync(id);
 
-            return View(new DealerListModel
-            {
-                Id=dealer.Id,
-                Name=dealer.Name,
-                Address=dealer.Address,
-                AppUserId=dealer.AppUserId
-            });
+	        string address = dealer.Address.Substring(0, dealer.Address.LastIndexOf("-"));
+	        string district = dealer.Address.Split("/").Last();
+	        Regex r = new Regex(@"-(.+?)/");
+	        MatchCollection mc = r.Matches(dealer.Address);
+	        string city = mc[0].Groups[1].Value;
+
+
+	        return View(new DealerListModel
+	        {
+		        Id = dealer.Id,
+		        Name = dealer.Name,
+		        Address = address,
+		        Email = dealer.Email,
+		        PhoneNumber = dealer.PhoneNumber,
+		        City = city,
+		        District = district,
+		        AppUserId = dealer.AppUserId
+	        });
         }
 
         [HttpPost]
@@ -66,6 +79,7 @@ namespace YZM4215_Grup7.Areas.Member.Controllers
         {
             if (ModelState.IsValid)
             {
+	            model.Address = model.Address + "  -" + model.City + "/" + model.District;
                 await _dealerService.UpdateDealerAsync(model);
                 return RedirectToAction("Index", "Dealer");
             }

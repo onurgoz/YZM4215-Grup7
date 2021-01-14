@@ -10,9 +10,29 @@
                     <input class="form-control" placeholder="Satıcı Adı" type="text" asp-for="@Model.Name">
                 </div>
                 <div class="form-group">
+                    <span class="text-danger" asp-validation-for="@Model.Email"></span>
+                    <input class="form-control" placeholder="Email Adresi" type="text" asp-for="@Model.Email">
+                </div>
+                <div class="form-group">
+                    <span class="text-danger" asp-validation-for="@Model.PhoneNumber"></span>
+                    <input class="form-control" placeholder="Telefon Numarası" type="text" asp-for="@Model.PhoneNumber">
+                </div>
+                <div class="form-group">
                     <span class="text-danger" asp-validation-for="@Model.Address"></span>
                     <textarea class="form-control" placeholder="Satıcı Adresi" asp-for="@Model.Address" rows="3"></textarea>
                 </div>
+                <div class="form-group">
+                    <select id="Iller" onchange="GetSelectedTextValue(this)">
+                        <option value="0">Lütfen Bir İl Seçiniz</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="Ilceler" disabled="disabled" onchange="GetDistrictText(this)">
+                        <option value="0">Lütfen Önce bir İl seçiniz</option>
+                    </select>
+                </div>
+                <input asp-for="@Model.City" type="hidden">
+                <input asp-for="@Model.District" type="hidden">
                 <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-info">Kaydet</button>
                 </div>
@@ -20,3 +40,22 @@
         </div>
     </div>
 </div>
+
+@section JavaScript{
+    <script src="/js/filler.js"></script>
+    <script>
+     function GetSelectedTextValue(sel){
+      var city = sel.options[sel.selectedIndex].text;
+
+      document.getElementById('City').value=city;
+     }
+    </script>
+    <script>
+     function GetDistrictText(sel){
+         var dist= sel.options[sel.selectedIndex].text
+
+         document.getElementById('District').value=dist
+     }
+    </script>
+
+}

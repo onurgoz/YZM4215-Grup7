@@ -1,22 +1,68 @@
 @model DealerListModel
 
-
+<div class="container">
     <div class="row h-100">
         <div class="col-sm-12 my-auto">
             <form method="post" asp-action="UpdateDealer" class="w-75 p-3 mx-auto" enctype="multipart/form-data">
-                <input class="form-control" type="hidden" asp-for="@Model.Id" >
+                <input class="form-control" type="hidden" asp-for="@Model.Id">
                 <div class="form-group">
                     <span class="text-danger" asp-for="@Model.Name"></span>
                     <input class="form-control" placeholder="Satıcı adı" type="text" asp-for="@Model.Name">
                 </div>
                 <div class="form-group">
+                    <span class="text-danger" asp-validation-for="@Model.Email"></span>
+                    <input class="form-control" placeholder="Email Adresi" type="text" asp-for="@Model.Email">
+                </div>
+                <div class="form-group">
+                    <span class="text-danger" asp-validation-for="@Model.PhoneNumber"></span>
+                    <input class="form-control" placeholder="Telefon Numarası" type="text" asp-for="@Model.PhoneNumber">
+                </div>
+                <div class="form-group">
                     <span class="text-danger" asp-validation-for="@Model.Address"></span>
                     <textarea class="form-control" placeholder="Ürün Açıklaması" asp-for="Address" rows="3"></textarea>
                 </div>
+                <div class="form-group">
+                    <select id="Iller" onchange="GetSelectedTextValue(this)">
+                        <option value="0">Lütfen Bir İl Seçiniz</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="Ilceler" disabled="disabled" onchange="GetDistrictText(this)">
+                        <option value="0">Lütfen Önce bir İl seçiniz</option>
+                    </select>
+                </div>
+                <input asp-for="@Model.City" type="hidden">
+                <input asp-for="@Model.District" type="hidden">
                 <input type="hidden" asp-for="@Model.AppUserId">
                 <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-info">Güncelle</button>
                 </div>
             </form>
         </div>
-    </div>    
+    </div>
+</div>
+
+@section JavaScript{
+
+    <script src="/js/filler.js"></script>
+    <script>
+     document.getElementById('Iller').options[0].text= document.getElementById('City').value
+     document.getElementById('Ilceler').options[0].text= document.getElementById('District').value
+     $("#Ilceler").prop("disabled", false);
+    </script>
+    <script>
+     function GetSelectedTextValue(sel){
+      var city = sel.options[sel.selectedIndex].text;
+
+      document.getElementById('City').value=city;
+     }
+    </script>
+    <script>
+     function GetDistrictText(sel){
+         var dist= sel.options[sel.selectedIndex].text
+
+         document.getElementById('District').value=dist
+     }
+    </script>
+
+}
